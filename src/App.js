@@ -3,32 +3,27 @@ import Header from './Header';
 import Footer from './Footer';
 import BestBooks from './BestBooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+//hi
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       user: null,
-    }
+    };
   }
 
   loginHandler = (user) => {
     this.setState({
       user,
-    })
-  }
+    });
+  };
 
   logoutHandler = () => {
     this.setState({
       user: null,
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -45,7 +40,7 @@ class App extends React.Component {
           <Footer />
         </Router>
       </>
-    )
+    );
   }
 }
 
