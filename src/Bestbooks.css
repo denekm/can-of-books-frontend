@@ -1,3 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 #book-image {
-  height:5px;
+  width: 300px;
+  height: 400px;
+  margin: auto;
+  margin-bottom: 14rem;
+  margin-top: 2rem;
+  transition-duration: 350ms;
+  opacity: 0.816;
+}
+#book-image:hover {
+  transform: scale(1.05);
+  transition-duration: 350ms;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background: './library.jpg';
+  /* background-color: rgb(14, 14, 14); */
+  width: 90%;
+  height: 90vh;
+}
+.carousel {
+  display: flex;
+
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 90vh;
+}
+
+.caption {
+  background-color: rgba(130, 130, 130, 0.324);
+  border-radius: 5px;
+  margin-top: 20rem;
+  font-family: 'Roboto Mono', monospace;
+}
+h2,
+h3 {
+  text-align: center;
+  color: rgb(194, 194, 194);
+  font-family: 'Rubik Glitch', cursive;
+}
+h3:hover,
+p:hover {
+  color: rgba(0, 255, 251, 0.687);
 }
