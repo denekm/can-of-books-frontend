@@ -35,7 +35,7 @@ class App extends React.Component {
               {/* PLACEHOLDER: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               <BestBooks />
             </Route>
-            {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}
+            <Route exact path="/about"></Route>
           </Switch>
           <Footer />
         </Router>
