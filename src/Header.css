@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&family=Roboto+Mono&display=swap');
 a{
   color:#fff;
 }
 
 a:hover{
   color:darkgrey;
+}
+#nav {
+  margin-bottom: 30px;
+}
+#navTitle {
+  font-size: 30px;
+  font-family: 'Grape Nuts', cursive;
 }

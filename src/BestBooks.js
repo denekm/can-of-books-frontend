@@ -25,7 +25,7 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+        {/* JJ and Erich helped! */}
         {this.state.books.length ? (
           <Container
             className="container"
@@ -37,7 +37,7 @@ class BestBooks extends React.Component {
             <Carousel className="carousel">
               {this.state.books.map((books) => (
                 <Carousel.Item key={books._id}>
-                  <h3>{books.title}</h3>
+                  <h3 id="bookTitle">{books.title}</h3>
                   <img
                     id="book-image"
                     className="d-block"
