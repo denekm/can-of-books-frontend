@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Container } from 'react-bootstrap';
+import './Bestbooks.css';
+import backgroundImg from './library.jpg';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -25,21 +27,30 @@ class BestBooks extends React.Component {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
         {this.state.books.length ? (
-          this.state.books.map((books) => (
-            <Carousel>
-              <Carousel.Item>
-                <h3>{books.title}</h3>
-                <p>{books.description}</p>
-                <img
-                  id="book-image"
-                  className="d-block"
-                  style={{ width: '10rem' }}
-                  src={books.url}
-                  alt="Second slide"
-                />
-              </Carousel.Item>
+          <Container
+            className="container"
+            style={{
+              backgroundImage: `url(${backgroundImg})`,
+              backgroundSize: 'cover',
+            }}
+          >
+            <Carousel className="carousel">
+              {this.state.books.map((books) => (
+                <Carousel.Item key={books._id}>
+                  <h3>{books.title}</h3>
+                  <img
+                    id="book-image"
+                    className="d-block"
+                    src={books.url}
+                    alt="Second slide"
+                  />
+                  <Carousel.Caption className="caption">
+                    <p>{books.description}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
             </Carousel>
-          ))
+          </Container>
         ) : (
           <h3>No Books Found :(</h3>
         )}
