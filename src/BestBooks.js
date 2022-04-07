@@ -3,22 +3,16 @@ import axios from 'axios';
 import { Carousel, Container } from 'react-bootstrap';
 import './Bestbooks.css';
 import backgroundImg from './library.jpg';
+import Button from 'react-bootstrap/Button';
 
 class BestBooks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: [],
-    };
+
+  delete = () => {
+    this.props.handleDeleteBook(this.props.books._id)
+
   }
 
-  /* TODO: Make a GET request to your API to fetch books for the logged in user  */
-  async componentDidMount() {
-    let url = `https://team-toxic-can-of-books.herokuapp.com/books`;
-    const response = await axios.get(url);
-    console.log(response.data);
-    this.setState({ books: response.data });
-  }
+
   render() {
     /* TODO: render user's books in a Carousel */
 
@@ -26,7 +20,7 @@ class BestBooks extends React.Component {
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         {/* JJ and Erich helped! */}
-        {this.state.books.length ? (
+        {this.props.books.length ? (
           <Container
             className="container"
             style={{
@@ -35,7 +29,7 @@ class BestBooks extends React.Component {
             }}
           >
             <Carousel className="carousel">
-              {this.state.books.map((books) => (
+              {this.props.books.map((books) => (
                 <Carousel.Item key={books._id}>
                   <h3 id="bookTitle">{books.title}</h3>
                   <img
@@ -47,9 +41,11 @@ class BestBooks extends React.Component {
                   <Carousel.Caption className="caption">
                     <p>{books.description}</p>
                   </Carousel.Caption>
+                  <Button onClick={this.delete} >Delete this Book!</Button>
                 </Carousel.Item>
               ))}
             </Carousel>
+      
           </Container>
         ) : (
           <h3>No Books Found :(</h3>
