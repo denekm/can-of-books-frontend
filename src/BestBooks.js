@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Carousel, Container } from 'react-bootstrap';
 import './Bestbooks.css';
 import backgroundImg from './library.jpg';
@@ -39,9 +38,10 @@ class BestBooks extends React.Component {
                     alt="Second slide"
                   />
                   <Carousel.Caption className="caption">
-                    <p>{books.description}</p>
+                    <p>{books.description}</p> 
+                     <Button onClick={()=> this.props.handleDeleteBook(books._id)}>Delete this Book!</Button>
                   </Carousel.Caption>
-                  <Button onClick={this.delete} >Delete this Book!</Button>
+                
                 </Carousel.Item>
               ))}
             </Carousel>

@@ -9,8 +9,10 @@ class CreateBook extends React.Component {
     event.preventDefault();
     const newBook = {
       title: event.target.formTitle.value,
-      description: event.target.formDescription.value
+      description: event.target.formDescription.value,
+      url: event.target.formImage.value
     };
+    console.log(newBook);
     this.props.handleCreateBook(newBook);
   }
 
@@ -27,16 +29,22 @@ class CreateBook extends React.Component {
           <Form.Label>Title</Form.Label>
           <Form.Control type="title" placeholder="Enter the name of your book" />
         </Form.Group>
+        <Form.Group controlId="formImage" >
+          <Form.Label>Image</Form.Label>
+          <Form.Control type ="text" placeholder="Enter URL"> 
+    
+          </Form.Control>
+        </Form.Group>
         <Form.Group controlId="formDescription">
           <Form.Label>Description</Form.Label>
           <Form.Control type="description" placeholder="Enter a description of your book " />
         </Form.Group>
-       
+       <Button type="submit">Add Book</Button>
       </Form>
   </Modal.Body>
 
   <Modal.Footer>
-  <Button type="submit">Add Book</Button>
+  
   </Modal.Footer>
 </Modal.Dialog>
 

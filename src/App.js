@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   /* TODO: Make a GET request to your API to fetch books for the logged in user  */
-  async componentDidMount() {
+   componentDidMount() {
     this.handleGetBook();
   }
 
@@ -30,11 +30,9 @@ class App extends React.Component {
 
   handleCreateBook = async (newBookInfo) => {
     let url = `https://team-toxic-can-of-books.herokuapp.com/books`;
-    // we are sending the new cat data in the response.body
+    
     await axios.post(url, newBookInfo);
 
-
-    // alternatively...
     this.handleGetBook();
   }
 
@@ -44,7 +42,7 @@ class App extends React.Component {
       const response = await axios.delete(url);
       console.log(response.data);
 
-      // alternatively...
+     
       this.handleGetBook();
     } catch (error) {
       console.error(error);
@@ -61,7 +59,7 @@ class App extends React.Component {
             <Route exact path="/">
               {/* PLACEHOLDER: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               <BestBooks books={this.state.books} handleDeleteBook={this.handleDeleteBook} />
-              <AddBook handleCreatBook={this.handleCreateBook} />
+              <AddBook handleCreateBook={this.handleCreateBook} />
             </Route>
             <Route exact path="/about"></Route>
           </Switch>
