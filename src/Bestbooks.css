@@ -52,3 +52,12 @@ h3:hover,
 p:hover {
   color: rgba(0, 255, 251, 0.687);
 }
+
+#button {
+  border-radius: 5px;
+  background-color: black;
+
+}
+#button:hover {
+  background-color: rgb(2, 192, 213);
+}

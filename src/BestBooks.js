@@ -5,13 +5,6 @@ import backgroundImg from './library.jpg';
 import Button from 'react-bootstrap/Button';
 
 class BestBooks extends React.Component {
-
-  delete = () => {
-    this.props.handleDeleteBook(this.props.books._id)
-
-  }
-
-
   render() {
     /* TODO: render user's books in a Carousel */
 
@@ -38,14 +31,17 @@ class BestBooks extends React.Component {
                     alt="Second slide"
                   />
                   <Carousel.Caption className="caption">
-                    <p>{books.description}</p> 
-                     <Button onClick={()=> this.props.handleDeleteBook(books._id)}>Delete this Book!</Button>
+                    <p>{books.description}</p>
+                    <Button
+                      id="button"
+                      onClick={() => this.props.handleDeleteBook(books._id)}
+                    >
+                      Delete this Book!
+                    </Button>
                   </Carousel.Caption>
-                
                 </Carousel.Item>
               ))}
             </Carousel>
-      
           </Container>
         ) : (
           <h3>No Books Found :(</h3>
