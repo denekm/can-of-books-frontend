@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './Bestbooks.css';
 import axios from 'axios';
 import AddBook from './AddBook';
+import Header from './Header';
 
 //hi
 class App extends React.Component {
@@ -13,10 +14,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       books: [],
+      show: false,
     };
   }
 
-  /* TODO: Make a GET request to your API to fetch books for the logged in user  */
   componentDidMount() {
     this.handleGetBook();
   }
@@ -40,7 +41,7 @@ class App extends React.Component {
     let url = `https://team-toxic-can-of-books.herokuapp.com/books/${id}`;
     try {
       const response = await axios.delete(url);
-      console.log(response.data);
+      console.log(response.data.message);
 
       this.handleGetBook();
     } catch (error) {
@@ -48,18 +49,31 @@ class App extends React.Component {
     }
   };
 
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  onHide = () => {
+    this.setState({ show: false });
+  };
+
   render() {
     return (
       <>
         <Router>
+          <Header />
           <Switch>
             <Route exact path="/">
-              {/* PLACEHOLDER: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
               <BestBooks
                 books={this.state.books}
                 handleDeleteBook={this.handleDeleteBook}
+                showModal={this.showModal}
               />
-              <AddBook handleCreateBook={this.handleCreateBook} />
+              <AddBook
+                show={this.state.show}
+                handleCreateBook={this.handleCreateBook}
+                onHide={this.onHide}
+              />
             </Route>
             <Route exact path="/about"></Route>
           </Switch>
