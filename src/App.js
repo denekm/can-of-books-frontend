@@ -23,14 +23,14 @@ class App extends React.Component {
   }
 
   handleGetBook = async () => {
-    let url = `https://team-toxic-can-of-books.herokuapp.com/books`;
+    let url = `${process.env.REACT_APP_SERVER}`;
     const response = await axios.get(url);
     console.log(response.data);
     this.setState({ books: response.data });
   };
 
   handleCreateBook = async (newBookInfo) => {
-    let url = `https://team-toxic-can-of-books.herokuapp.com/books`;
+    let url = `${process.env.REACT_APP_SERVER}`;
 
     await axios.post(url, newBookInfo);
 
@@ -38,7 +38,7 @@ class App extends React.Component {
   };
 
   handleDeleteBook = async (id) => {
-    let url = `https://team-toxic-can-of-books.herokuapp.com/books/${id}`;
+    let url = `${process.env.REACT_APP_SERVER}${id}`;
     try {
       const response = await axios.delete(url);
       console.log(response.data.message);

@@ -41,10 +41,10 @@ class BestBooks extends React.Component {
                   </Carousel.Item>
                 ))}
               </Carousel>
+              <Button id="button" onClick={() => this.props.showModal()}>
+                Add a New Book!
+              </Button>
             </Container>
-            <Button onClick={() => this.props.showModal()}>
-              Add a New Book!
-            </Button>
           </>
         ) : (
           <h3>No Books Found :(</h3>
