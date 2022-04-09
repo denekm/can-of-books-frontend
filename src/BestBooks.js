@@ -3,6 +3,7 @@ import { Carousel, Container } from 'react-bootstrap';
 import './Bestbooks.css';
 import backgroundImg from './library.jpg';
 import Button from 'react-bootstrap/Button';
+import UpdateBooksForm from './UpdateBooks';
 
 class BestBooks extends React.Component {
   render() {
@@ -40,9 +41,13 @@ class BestBooks extends React.Component {
                     </Carousel.Caption>
                   </Carousel.Item>
                 ))}
+              
               </Carousel>
               <Button id="button" onClick={() => this.props.showModal()}>
                 Add a New Book!
+              </Button>
+              <Button id="button" onClick={() => this.props.showModal()}>
+                Update a Book!
               </Button>
             </Container>
           </>

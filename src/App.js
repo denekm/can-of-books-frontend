@@ -7,8 +7,9 @@ import './Bestbooks.css';
 import axios from 'axios';
 import AddBook from './AddBook';
 import Header from './Header';
+import UpdateBooks from './UpdateBooks';
 
-//hi
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -48,6 +49,17 @@ class App extends React.Component {
       console.error(error);
     }
   };
+  handleUpdateBook = async (bookToBeUpdated) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}${bookToBeUpdated._id}`;
+      axios.put(url, bookToBeUpdated);
+
+
+      this.handleGetBook();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   showModal = () => {
     this.setState({ show: true });
@@ -68,10 +80,16 @@ class App extends React.Component {
                 books={this.state.books}
                 handleDeleteBook={this.handleDeleteBook}
                 showModal={this.showModal}
+                handleUpdateBook={this.handleUpdateBook}
               />
               <AddBook
                 show={this.state.show}
                 handleCreateBook={this.handleCreateBook}
+                onHide={this.onHide}
+              />
+              <UpdateBooks
+                show={this.state.show}
+                handleUpdateBook={this.handleUpdateBook}
                 onHide={this.onHide}
               />
             </Route>
