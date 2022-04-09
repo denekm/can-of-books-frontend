@@ -18,7 +18,7 @@ class CreateBook extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.show}>
+      <Modal className="modalBackground" show={this.props.show}>
         <Modal.Dialog>
           <Modal.Header closeButton>
             <Modal.Title>Add a new book</Modal.Title>
@@ -27,10 +27,7 @@ class CreateBook extends React.Component {
             <Form onSubmit={this.handleSubmit}>
               <Form.Group controlId="formTitle">
                 <Form.Label>Title</Form.Label>
-                <Form.Control
-                  type="title"
-                  placeholder="Enter the name of your book"
-                />
+                <Form.Control type="title" placeholder="Book name" />
               </Form.Group>
               <Form.Group controlId="formImage">
                 <Form.Label>Image</Form.Label>
@@ -52,7 +49,9 @@ class CreateBook extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.props.onHide()}>Close</Button>
+            <Button id="button" onClick={() => this.props.onHide()}>
+              Close
+            </Button>
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
