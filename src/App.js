@@ -7,15 +7,13 @@ import './Bestbooks.css';
 import axios from 'axios';
 import AddBook from './AddBook';
 import Header from './Header';
-import UpdateBooks from './UpdateBooks';
-
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      show: false,
+      showAddBook: false,
     };
   }
 
@@ -26,7 +24,6 @@ class App extends React.Component {
   handleGetBook = async () => {
     let url = `${process.env.REACT_APP_SERVER}`;
     const response = await axios.get(url);
-    console.log(response.data);
     this.setState({ books: response.data });
   };
 
@@ -39,11 +36,9 @@ class App extends React.Component {
   };
 
   handleDeleteBook = async (id) => {
-    let url = `${process.env.REACT_APP_SERVER}${id}`;
+    let url = `${process.env.REACT_APP_SERVER}/${id}`;
     try {
-      const response = await axios.delete(url);
-      console.log(response.data.message);
-
+      await axios.delete(url);
       this.handleGetBook();
     } catch (error) {
       console.error(error);
@@ -51,22 +46,21 @@ class App extends React.Component {
   };
   handleUpdateBook = async (bookToBeUpdated) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}${bookToBeUpdated._id}`;
-      axios.put(url, bookToBeUpdated);
-
+      let url = `${process.env.REACT_APP_SERVER}/${bookToBeUpdated._id}`;
+      await axios.put(url, bookToBeUpdated);
 
       this.handleGetBook();
     } catch (error) {
       console.error(error);
     }
-  }
-
-  showModal = () => {
-    this.setState({ show: true });
   };
 
-  onHide = () => {
-    this.setState({ show: false });
+  showAddBookModal = () => {
+    this.setState({ showAddBook: true });
+  };
+
+  onHideAddBook = () => {
+    this.setState({ showAddBook: false });
   };
 
   render() {
@@ -79,18 +73,13 @@ class App extends React.Component {
               <BestBooks
                 books={this.state.books}
                 handleDeleteBook={this.handleDeleteBook}
-                showModal={this.showModal}
+                showAddModal={this.showAddBookModal}
                 handleUpdateBook={this.handleUpdateBook}
               />
               <AddBook
-                show={this.state.show}
+                show={this.state.showAddBook}
                 handleCreateBook={this.handleCreateBook}
-                onHide={this.onHide}
-              />
-              <UpdateBooks
-                show={this.state.show}
-                handleUpdateBook={this.handleUpdateBook}
-                onHide={this.onHide}
+                onHide={this.onHideAddBook}
               />
             </Route>
             <Route exact path="/about"></Route>
