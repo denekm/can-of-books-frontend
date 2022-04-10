@@ -3,9 +3,26 @@ import { Carousel, Container } from 'react-bootstrap';
 import './Bestbooks.css';
 import backgroundImg from './library.jpg';
 import Button from 'react-bootstrap/Button';
-import UpdateBooksForm from './UpdateBooks';
+import UpdateBooks from './UpdateBooks';
 
 class BestBooks extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showUpdateBook: false,
+      currentBook: null,
+    };
+  }
+
+  showUpdateBookModal = (book) => {
+    this.setState({ currentBook: book });
+    this.setState({ showUpdateBook: true });
+  };
+
+  onHideUpdateBook = () => {
+    this.setState({ showUpdateBook: false });
+  };
+
   render() {
     return (
       <>
@@ -13,6 +30,14 @@ class BestBooks extends React.Component {
         {/* JJ and Erich helped! */}
         {this.props.books.length ? (
           <>
+            {this.state.currentBook && (
+              <UpdateBooks
+                book={this.state.currentBook}
+                show={this.state.showUpdateBook}
+                handleUpdateBook={this.props.handleUpdateBook}
+                onHide={this.onHideUpdateBook}
+              />
+            )}
             <Container
               className="container"
               style={{
@@ -21,33 +46,35 @@ class BestBooks extends React.Component {
               }}
             >
               <Carousel className="carousel">
-                {this.props.books.map((books) => (
-                  <Carousel.Item key={books._id}>
-                    <h3 id="bookTitle">{books.title}</h3>
+                {this.props.books.map((book) => (
+                  <Carousel.Item key={book._id}>
+                    <h3 id="bookTitle">{book.title}</h3>
                     <img
                       id="book-image"
                       className="d-block"
-                      src={books.url}
+                      src={book.url}
                       alt="Second slide"
                     />
                     <Carousel.Caption className="caption">
-                      <p>{books.description}</p>
+                      <p>{book.description}</p>
                       <Button
                         id="button"
-                        onClick={() => this.props.handleDeleteBook(books._id)}
+                        onClick={() => this.props.handleDeleteBook(book._id)}
                       >
                         Delete this Book!
+                      </Button>
+                      <Button
+                        id="button"
+                        onClick={() => this.showUpdateBookModal(book)}
+                      >
+                        Update a Book!
                       </Button>
                     </Carousel.Caption>
                   </Carousel.Item>
                 ))}
-              
               </Carousel>
-              <Button id="button" onClick={() => this.props.showModal()}>
+              <Button id="button" onClick={() => this.props.showAddModal()}>
                 Add a New Book!
-              </Button>
-              <Button id="button" onClick={() => this.props.showModal()}>
-                Update a Book!
               </Button>
             </Container>
           </>

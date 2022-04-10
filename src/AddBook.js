@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-class CreateBook extends React.Component {
+class AddBook extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const newBook = {
@@ -11,7 +11,6 @@ class CreateBook extends React.Component {
       description: event.target.formDescription.value,
       url: event.target.formImage.value,
     };
-    console.log(newBook);
     this.props.handleCreateBook(newBook);
     this.props.onHide();
   };
@@ -59,4 +58,4 @@ class CreateBook extends React.Component {
   }
 }
 
-export default CreateBook;
+export default AddBook;
