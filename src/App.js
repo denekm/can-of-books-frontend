@@ -7,6 +7,12 @@ import './Bestbooks.css';
 import axios from 'axios';
 import AddBook from './AddBook';
 import Header from './Header';
+import LoginButton from './Login';
+import LogoutButton from './Logout';
+import About from './About';
+import { withAuth0 } from '@auth0/auth0-react';
+import Welcome from './Welcome';
+import Profile from './Profile';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,39 +28,94 @@ class App extends React.Component {
   }
 
   handleGetBook = async () => {
-    let url = `${process.env.REACT_APP_SERVER}`;
-    const response = await axios.get(url);
-    this.setState({ books: response.data });
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+
+      // leave this console here in order to grab your token for backend testing in Thunder Client
+      console.log('token: ', jwt);
+
+      const config = {
+        headers: { Authorization: `Bearer ${jwt}` },
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: '/books',
+      };
+
+      const booksResponse = await axios(config);
+
+      console.log('Books from DB: ', booksResponse.data);
+
+      this.setState({ books: booksResponse.data });
+    }
   };
 
   handleCreateBook = async (newBookInfo) => {
-    let url = `${process.env.REACT_APP_SERVER}`;
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
 
-    await axios.post(url, newBookInfo);
+      // leave this console here in order to grab your token for backend testing in Thunder Client
+      console.log('token: ', jwt);
 
-    this.handleGetBook();
+      const config = {
+        headers: { Authorization: `Bearer ${jwt}` },
+        method: 'post',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: '/books',
+        body: newBookInfo,
+      };
+
+      const booksResponse = await axios(config);
+
+      console.log('Books from DB: ', booksResponse.data);
+
+      this.handleGetBook();
+    }
   };
 
-  handleDeleteBook = async (id) => {
-    let url = `${process.env.REACT_APP_SERVER}/${id}`;
-    try {
-      await axios.delete(url);
+  handleDeleteBook = async (id, email) => {
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+
+      // leave this console here in order to grab your token for backend testing in Thunder Client
+      console.log('token: ', jwt);
+
+      const config = {
+        headers: { Authorization: `Bearer ${jwt}` },
+        method: 'delete',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: `/books${id}`,
+        params: { email: email },
+      };
+
+      await axios(config);
+
       this.handleGetBook();
-    } catch (error) {
-      console.error(error);
     }
   };
   handleUpdateBook = async (bookToBeUpdated) => {
-    try {
-      let url = `${process.env.REACT_APP_SERVER}/${bookToBeUpdated._id}`;
-      await axios.put(url, bookToBeUpdated);
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+
+      // leave this console here in order to grab your token for backend testing in Thunder Client
+      console.log('token: ', jwt);
+
+      const config = {
+        headers: { Authorization: `Bearer ${jwt}` },
+        method: 'put',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: `/books${bookToBeUpdated._id}`,
+        params: { email: bookToBeUpdated.email },
+      };
+
+      await axios(config);
 
       this.handleGetBook();
-    } catch (error) {
-      console.error(error);
     }
   };
-
   showAddBookModal = () => {
     this.setState({ showAddBook: true });
   };
@@ -70,6 +131,15 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/">
+                {!this.props.auth0.isAuthenticated ? (
+                  <>
+                    <Welcome />
+                    <LoginButton />
+                  </>
+                ) : 
+                (<>
+              <Profile />
+              <LogoutButton />
               <BestBooks
                 books={this.state.books}
                 handleDeleteBook={this.handleDeleteBook}
@@ -81,9 +151,12 @@ class App extends React.Component {
                 handleCreateBook={this.handleCreateBook}
                 onHide={this.onHideAddBook}
               />
+              </>
+                )}
             </Route>
             <Route exact path="/about"></Route>
           </Switch>
+          <About> </About>
           <Footer />
         </Router>
       </>
@@ -91,4 +164,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
