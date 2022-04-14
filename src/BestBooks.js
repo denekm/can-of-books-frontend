@@ -59,7 +59,7 @@ class BestBooks extends React.Component {
                       <p>{book.description}</p>
                       <Button
                         id="button"
-                        onClick={() => this.props.handleDeleteBook(book._id)}
+                        onClick={() => this.props.handleDeleteBook(book._id,book.email)}
                       >
                         Delete this Book!
                       </Button>
