@@ -9,7 +9,6 @@ import AddBook from './AddBook';
 import Header from './Header';
 import LoginButton from './Login';
 import LogoutButton from './Logout';
-import About from './About';
 import { withAuth0 } from '@auth0/auth0-react';
 import Welcome from './Welcome';
 import Profile from './Profile';
@@ -131,32 +130,31 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/">
-                {!this.props.auth0.isAuthenticated ? (
-                  <>
-                    <Welcome />
-                    <LoginButton />
-                  </>
-                ) : 
-                (<>
-              <Profile />
-              <LogoutButton />
-              <BestBooks
-                books={this.state.books}
-                handleDeleteBook={this.handleDeleteBook}
-                showAddModal={this.showAddBookModal}
-                handleUpdateBook={this.handleUpdateBook}
-              />
-              <AddBook
-                show={this.state.showAddBook}
-                handleCreateBook={this.handleCreateBook}
-                onHide={this.onHideAddBook}
-              />
-              </>
-                )}
+              {!this.props.auth0.isAuthenticated ? (
+                <>
+                  <Welcome />
+                  <LoginButton />
+                </>
+              ) : (
+                <>
+                  <Profile />
+                  <LogoutButton />
+                  <BestBooks
+                    books={this.state.books}
+                    handleDeleteBook={this.handleDeleteBook}
+                    showAddModal={this.showAddBookModal}
+                    handleUpdateBook={this.handleUpdateBook}
+                  />
+                  <AddBook
+                    show={this.state.showAddBook}
+                    handleCreateBook={this.handleCreateBook}
+                    onHide={this.onHideAddBook}
+                  />
+                </>
+              )}
             </Route>
             <Route exact path="/about"></Route>
           </Switch>
-          <About> </About>
           <Footer />
         </Router>
       </>
