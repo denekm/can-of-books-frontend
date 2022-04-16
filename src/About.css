@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&family=Roboto+Mono&display=swap');
+#aboutdiv{
+  width:80px;
+  height:70%;
+}
+
+#container-bob {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+
+}
+
+#bob {
+background-color: rgba(0, 0, 0, 0.277);
+}
+#h1-title {
+ margin-bottom: 30px;
+  margin-left: 50rem;
+  color: rgb(152, 233, 246);
+  font-family: 'Grape Nuts', cursive;
+  font-size: 60px;
+}
+
+#username {
+  color: rgb(190, 194, 194);
+
+}
